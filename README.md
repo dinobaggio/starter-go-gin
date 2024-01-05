@@ -1,5 +1,5 @@
 # Starter Golang with GIN
 
-- [ ] Gin
+- [x] Gin
 - [ ] Gorm
 - [ ] Goose
