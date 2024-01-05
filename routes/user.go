@@ -9,8 +9,8 @@ import (
 func UserRouter(group *gin.RouterGroup) {
 	router := group.Group("users")
 	{
-		router.GET("/", func(c *gin.Context) {
-			c.JSON(http.StatusOK, "succss")
+		router.GET("", func(c *gin.Context) {
+			c.JSON(http.StatusOK, "success")
 		})
 	}
 }

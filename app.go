@@ -41,3 +41,10 @@ func (a *App) Run(addr string) {
 		log.Panic("Failed to start the server:", err)
 	}
 }
+
+func NewApp() *App {
+	app := App{}
+	app.Initialize()
+
+	return &app
+}

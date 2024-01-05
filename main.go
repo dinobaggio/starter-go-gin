@@ -3,9 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	app := App{}
-	app.Initialize()
-
+	app := NewApp()
 	port := "3000"
 	app.Run(fmt.Sprint(":", port))
 }
