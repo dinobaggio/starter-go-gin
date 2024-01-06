@@ -8,6 +8,9 @@ services:
       context: .
       dockerfile: docker/image.dockerfile
     command: "sh -c './docker/entrypoint.dev.sh'"
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
       - 3000:3000
     volumes:
