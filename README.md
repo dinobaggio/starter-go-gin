@@ -3,3 +3,4 @@
 - [x] Gin
 - [ ] Gorm
 - [ ] Goose
+- [ ] Dockerize

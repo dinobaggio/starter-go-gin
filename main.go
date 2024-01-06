@@ -1,9 +1,7 @@
 package main
 
-import "fmt"
+import "starter-go-gin/cmd"
 
 func main() {
-	app := NewApp()
-	port := "3000"
-	app.Run(fmt.Sprint(":", port))
+	cmd.Execute()
 }
