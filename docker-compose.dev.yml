@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  app:
+    container_name: startergo_app
+    image: starter-go:latest
+    build:
+      context: .
+      dockerfile: docker/image.dockerfile
+    command: "sh -c './docker/entrypoint.dev.sh'"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    networks:
+      - startergo_network
+
+  mysql:
+    container_name: startergo_mysql
+    image: mysql:8.0.27
+    ports:
+      - 33007:3306
+    volumes:
+      - db-storage:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=startergo
+    networks:
+      - startergo_network
+    healthcheck:
+      test: mysqladmin ping -h localhost
+
+networks:
+  startergo_network:
+    driver: bridge
+
+volumes:
+  db-storage:
+  redis-storage:
+  rabbitmq-storage:
