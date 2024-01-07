@@ -1,0 +1,4 @@
+starter-go-gin
+.DS_store
+tmp/
+.env
