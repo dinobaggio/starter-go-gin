@@ -5,6 +5,8 @@ import (
 	"flag"
 	"log"
 	"starter-go-gin/libs"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var pool *sql.DB
@@ -32,12 +34,8 @@ func init() {
 		log.Fatal("missing dsn flag")
 	}
 	var err error
-
-	// Opening a driver typically will not attempt to connect to the database.
 	pool, err = sql.Open(libs.EnvVariable("DB_CONNECTION"), *dsn)
 	if err != nil {
-		// This will not be a connection error, but a DSN parse error or
-		// another initialization error.
 		log.Fatal("unable to use data source name", err)
 	}
 }
