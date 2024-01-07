@@ -1,10 +1,10 @@
 # Starter Golang with GIN
 
 - [x] Gin
-- [ ] Gorm
-- [ ] Goose
-- [ ] Dockerize
-- [x] migrations
+- [x] Database
+- [x] Goose
+- [x] Dockerize
+- [x] Migrations
 
 # How To Run
 
