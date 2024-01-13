@@ -5,6 +5,7 @@ import (
 	"flag"
 	"log"
 	"starter-go-gin/libs"
+	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -12,6 +13,9 @@ import (
 var pool *sql.DB
 
 func init() {
+	// Note: Prevent errors like "flag provided but not defined: -test.paniconexit0" from occurring in go test.
+	testing.Init()
+
 	type DBConfig struct {
 		hostname string
 		port     string
