@@ -13,6 +13,3 @@ dev-build:
 
 create-migration:
 	goose -dir database/migrations create $(FILENAME) sql
-
-migrate:
-	go run . migrate
