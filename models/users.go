@@ -1,7 +1,6 @@
 package models
 
 import (
-	"context"
 	"starter-go-gin/config"
 	"time"
 )
@@ -21,7 +20,7 @@ func NewUser() *User {
 	return &User{}
 }
 
-func (User) GetUsersWithPagination(ctx context.Context) ([]User, error) {
+func (User) GetUsersWithPagination() ([]User, error) {
 	conn := config.SQLDBConn()
 	var users []User
 	rows, err := conn.Query("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users")
