@@ -6,6 +6,7 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
+	"starter-go-gin/constants"
 	"strings"
 
 	"github.com/joho/godotenv"
@@ -30,7 +31,7 @@ func RootDir() string {
 	}
 
 	d := strings.Split(path.Join(CurrentDir()), "/")
-	indx := findIndex(d, "starter-go-gin")
+	indx := findIndex(d, constants.APP_NAME)
 
 	d = d[0 : indx+1]
 
@@ -38,12 +39,9 @@ func RootDir() string {
 }
 
 func EnvVariable(key string) string {
-	// load .env file
 	err := godotenv.Load(filepath.Join(RootDir(), ".env"))
-
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-
 	return os.Getenv(key)
 }
