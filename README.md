@@ -5,6 +5,7 @@
 - [x] Goose
 - [x] Dockerize
 - [x] Migrations
+- [x] Cobra
 
 # How To Run
 
