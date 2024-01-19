@@ -1,23 +1,4 @@
-# Starter Golang with GIN
-
-- [x] Gin
-- [x] Database
-- [x] Goose
-- [x] Dockerize
-- [x] Migrations
-- [x] Cobra
-
-# How To Run
-
-### Run Dev
-```bash
-make dev
-```
-
-# Directory folder
-
-```
-starter-go-gin
+.
 ├── Makefile
 ├── README.md
 ├── bin
@@ -51,9 +32,11 @@ starter-go-gin
 ├── models
 │   ├── users.go
 │   └── users_test.go
-└── routes
-    ├── routes.go
-    └── user.go
+├── routes
+│   ├── routes.go
+│   └── user.go
+└── tmp
+    ├── build-errors.log
+    └── main
 
 13 directories, 27 files
-```
