@@ -14,6 +14,7 @@ func SetUp(router *gin.Engine) {
 			v1.GET("/healthcheck", func(c *gin.Context) {
 				c.JSON(http.StatusOK, "It's work")
 			})
+			AuthRouter(v1)
 			UserRouter(v1)
 		}
 	}

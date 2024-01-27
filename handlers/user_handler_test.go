@@ -15,10 +15,18 @@ func TestListUser(t *testing.T) {
 	userHandler := NewUserHandler()
 	url := "/api/v1/users"
 	r.GET(url, userHandler.List)
-	req, _ := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
-	responseData, _ := io.ReadAll(w.Body)
+	responseData, err := io.ReadAll(w.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	fmt.Println(string(responseData))
 }
