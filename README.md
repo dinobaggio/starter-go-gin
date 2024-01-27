@@ -8,6 +8,7 @@
 - [x] Cobra
 - [x] Unit test
 - [x] Login & Registration
+- [x] JWT
 
 ## **How To Run**
 
