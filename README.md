@@ -1,4 +1,4 @@
-# **Starter Golang with GIN**
+## **Starter Golang with GIN**
 
 - [x] Gin
 - [x] Database SQL
@@ -9,7 +9,7 @@
 - [x] Unit test
 - [x] Login & Registration
 
-# **How To Run**
+## **How To Run**
 
 ## **Run Dev**
 
@@ -22,10 +22,92 @@ this command will be create docker instance main app and mysql database
 ## **Endpoint**
 
 ```bash
-[GIN-debug] GET    /api/v1/healthcheck       --> starter-go-gin/routes.SetUp.func1 (3 handlers)
-[GIN-debug] POST   /api/v1/auth/login        --> starter-go-gin/handlers.(*AuthHandler).Login-fm (3 handlers)
-[GIN-debug] POST   /api/v1/auth/register     --> starter-go-gin/handlers.(*AuthHandler).Register-fm (3 handlers)
-[GIN-debug] GET    /api/v1/users             --> starter-go-gin/handlers.(*UserHandler).List-fm (3 handlers)
+GET    /api/v1/healthcheck
+POST   /api/v1/auth/login
+POST   /api/v1/auth/register
+GET    /api/v1/users
+```
+
+### **`GET` /api/v1/healthcheck**
+
+**response :**
+```json
+"It's work"
+```
+
+### **`POST` /api/v1/auth/login**
+
+**payload :**
+```json
+{
+    "email": "admin@admin.com",
+    "password": "password123",
+}
+```
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": {
+        "token": "string",
+        "user": {
+            "id": "number",
+            "uuid": "string",
+            "name": "string",
+            "email": "string",
+            "created_at": "string",
+            "updated_at": "string",
+            "deleted_at": "string",
+        }
+    },
+}
+```
+
+### **`POST` /api/v1/auth/register**
+
+**payload :**
+```json
+{
+    "name": "admin",
+    "email": "admin@admin.com",
+    "password": "password123",
+    "confirm_password": "password123",
+}
+```
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": {
+        "user": {
+            "id": "number",
+            "uuid": "string",
+            "name": "string",
+            "email": "string",
+            "created_at": "string",
+            "updated_at": "string",
+            "deleted_at": "string",
+        }
+    },
+}
+```
+
+### **`GET` /api/v1/auth/users**
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": [{
+        "id": "number",
+        "name": "string",
+        "email": "string",
+        "created_at": "string",
+        "updated_at": "string",
+    }],
+}
 ```
 
 ### **Credentials**
@@ -35,7 +117,7 @@ email: `admin@admin.com`
 password: `password123`
 
 
-# **Migration**
+## **Migration**
 
 ## **How To Create Migration**
 
