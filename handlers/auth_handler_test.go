@@ -15,7 +15,7 @@ import (
 )
 
 func TestLogin(t *testing.T) {
-	url := "/api/v1/login"
+	url := "/api/v1/auth/login"
 	r := gin.Default()
 	authHandler := NewAuthHandler()
 	r.POST(url, authHandler.Login)
@@ -49,6 +49,7 @@ func TestLogin(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	data := response["data"].(map[string]interface{})
 	user := data["user"].(map[string]interface{})
 
@@ -57,7 +58,7 @@ func TestLogin(t *testing.T) {
 }
 
 func TestRegrister(t *testing.T) {
-	url := "/api/v1/register"
+	url := "/api/v1/auth/register"
 	r := gin.Default()
 	authHandler := NewAuthHandler()
 	r.POST(url, authHandler.Register)
