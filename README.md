@@ -19,6 +19,28 @@ make dev
 
 this command will be create docker instance main app and mysql database
 
+## **Migration**
+
+## **How To Create Migration**
+
+```bash
+make create-migration FILENAME=create_table_users
+```
+
+output file will be on `database/migrations`
+
+## **How To Run Migration**
+
+```bash
+go run . migrate
+```
+
+## **How To Down Migration**
+
+```bash
+go run . migrate:down
+```
+
 ## **Endpoint**
 
 ```bash
@@ -27,6 +49,13 @@ POST   /api/v1/auth/login
 POST   /api/v1/auth/register
 GET    /api/v1/users
 ```
+
+### **Credentials**
+
+email: `admin@admin.com`
+
+password: `password123`
+
 
 ### **`GET` /api/v1/healthcheck**
 
@@ -108,33 +137,4 @@ GET    /api/v1/users
         "updated_at": "string",
     }],
 }
-```
-
-### **Credentials**
-
-email: `admin@admin.com`
-
-password: `password123`
-
-
-## **Migration**
-
-## **How To Create Migration**
-
-```bash
-make create-migration FILENAME=create_table_users
-```
-
-output file will be on `database/migrations`
-
-## **How To Run Migration**
-
-```bash
-go run . migrate
-```
-
-## **How To Down Migration**
-
-```bash
-go run . migrate:down
 ```
