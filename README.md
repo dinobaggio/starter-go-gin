@@ -6,6 +6,7 @@
 - [x] Dockerize
 - [x] Migrations
 - [x] Cobra
+- [x] Unit test
 
 # **How To Run**
 

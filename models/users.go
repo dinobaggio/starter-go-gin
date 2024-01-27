@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"starter-go-gin/config"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
@@ -93,6 +95,8 @@ func (*User) GetByUUID(uuid string) (*User, error) {
 	var result User
 
 	conn := config.SQLDBConn()
+	defer conn.Close()
+
 	row := conn.QueryRow("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users where uuid = ?", uuid)
 
 	err := scanUserRow(&result, row)
@@ -108,6 +112,8 @@ func (*User) GetByEmail(email string) (*User, error) {
 	var result User
 
 	conn := config.SQLDBConn()
+	defer conn.Close()
+
 	row := conn.QueryRow("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users where email = ?", email)
 
 	err := scanUserRow(&result, row)
@@ -117,4 +123,47 @@ func (*User) GetByEmail(email string) (*User, error) {
 	}
 
 	return &result, nil
+}
+
+func (u *User) Save() (int64, error) {
+	conn := config.SQLDBConn()
+
+	stmt, err := conn.Prepare("INSERT INTO users(uuid, name, email, password, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)")
+	if err != nil {
+		return 0, err
+	}
+	defer stmt.Close()
+
+	userUUID := uuid.New()
+	now := time.Now()
+	result, err := stmt.Exec(
+		userUUID,
+		u.Name,
+		u.Email,
+		u.Password,
+		now,
+		now,
+	)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return result.LastInsertId()
+}
+
+func (*User) DeleteByEmail(email string) error {
+	conn := config.SQLDBConn()
+	stmt, err := conn.Prepare("DELETE FROM users where email = ?")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(email)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

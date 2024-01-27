@@ -24,3 +24,14 @@ func LoginCheck(email, password string) (*User, error) {
 func VerifyPassword(password, hashedPassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
+
+func GeneratePassword(password string) (*string, error) {
+	hashByte, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+
+	hashString := string(hashByte)
+
+	return &hashString, nil
+}
