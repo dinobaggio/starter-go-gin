@@ -1,59 +1,141 @@
-# Starter Golang with GIN
+## **Starter Golang with GIN**
 
 - [x] Gin
-- [x] Database
+- [x] Database SQL
 - [x] Goose
 - [x] Dockerize
 - [x] Migrations
 - [x] Cobra
+- [x] Unit test
+- [x] Login & Registration
+- [x] JWT
 
-# How To Run
+## **How To Run**
 
-### Run Dev
+## **Run Dev**
+
 ```bash
 make dev
 ```
 
-# Directory folder
+this command will be create docker instance main app and mysql database
 
+## **Migration**
+
+## **How To Create Migration**
+
+```bash
+make create-migration FILENAME=create_table_users
 ```
-starter-go-gin
-├── Makefile
-├── README.md
-├── bin
-│   └── app.go
-├── cmd
-│   ├── migrate.go
-│   ├── migrate_down.go
-│   ├── root.go
-│   └── serve.go
-├── config
-│   └── database_sql.go
-├── constants
-│   └── constants.go
-├── database
-│   └── migrations
-│       └── 20240106051149_create_table_users.sql
-├── dir.md
-├── docker
-│   ├── entrypoint.dev.sh
-│   └── image.dockerfile
-├── docker-compose.dev.yml
-├── go.mod
-├── go.sum
-├── handlers
-│   ├── user_handler.go
-│   └── user_handler_test.go
-├── libs
-│   ├── libs.go
-│   └── response.go
-├── main.go
-├── models
-│   ├── users.go
-│   └── users_test.go
-└── routes
-    ├── routes.go
-    └── user.go
 
-13 directories, 27 files
+output file will be on `database/migrations`
+
+## **How To Run Migration**
+
+```bash
+go run . migrate
+```
+
+## **How To Down Migration**
+
+```bash
+go run . migrate:down
+```
+
+## **Endpoint**
+
+```bash
+GET    /api/v1/healthcheck
+POST   /api/v1/auth/login
+POST   /api/v1/auth/register
+GET    /api/v1/users
+```
+
+### **Credentials**
+
+email: `admin@admin.com`
+
+password: `password123`
+
+
+### **`GET` /api/v1/healthcheck**
+
+**response :**
+```json
+"It's work"
+```
+
+### **`POST` /api/v1/auth/login**
+
+**payload :**
+```json
+{
+    "email": "admin@admin.com",
+    "password": "password123",
+}
+```
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": {
+        "token": "string",
+        "user": {
+            "id": "number",
+            "uuid": "string",
+            "name": "string",
+            "email": "string",
+            "created_at": "string",
+            "updated_at": "string",
+            "deleted_at": "string",
+        }
+    },
+}
+```
+
+### **`POST` /api/v1/auth/register**
+
+**payload :**
+```json
+{
+    "name": "admin",
+    "email": "admin@admin.com",
+    "password": "password123",
+    "confirm_password": "password123",
+}
+```
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": {
+        "user": {
+            "id": "number",
+            "uuid": "string",
+            "name": "string",
+            "email": "string",
+            "created_at": "string",
+            "updated_at": "string",
+            "deleted_at": "string",
+        }
+    },
+}
+```
+
+### **`GET` /api/v1/auth/users**
+
+**response :**
+```json
+{
+    "message": "success",
+    "data": [{
+        "id": "number",
+        "name": "string",
+        "email": "string",
+        "created_at": "string",
+        "updated_at": "string",
+    }],
+}
 ```

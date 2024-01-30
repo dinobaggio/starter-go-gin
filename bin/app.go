@@ -21,16 +21,7 @@ func (a *App) Initialize() {
 // setRoutes sets up the routes for the application.
 func (a *App) setRoutes() {
 	router := a.Router
-	api := router.Group("/api")
-	{
-		v1 := api.Group("/v1")
-		{
-			v1.GET("/healthcheck", func(c *gin.Context) {
-				c.JSON(http.StatusOK, "It's work")
-			})
-			routes.UserRouter(v1)
-		}
-	}
+	routes.SetUp(router)
 }
 
 // Run starts the application.
