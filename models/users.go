@@ -55,10 +55,25 @@ func scanUserRow(result *User, row interface{}) error {
 	return nil
 }
 
-func (*User) GetUsersWithPagination() ([]User, error) {
+func (*User) GetUsersWithPagination(page, limit int64) ([]User, error) {
 	conn := config.SQLDBConn()
 	var users []User
-	rows, err := conn.Query("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users")
+
+	offset := (page - 1) * limit
+
+	rows, err := conn.Query(`
+	SELECT 
+		id, 
+		uuid, 
+		name, 
+		email, 
+		password, 
+		created_at, 
+		updated_at, 
+		deleted_at 
+	FROM users LIMIT ? OFFSET ?
+	`, limit, offset)
+
 	if err != nil {
 		return nil, err
 	}
@@ -80,6 +95,7 @@ func (*User) GetByID(id int64) (*User, error) {
 	var result User
 
 	conn := config.SQLDBConn()
+
 	row := conn.QueryRow("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users where id = ?", id)
 
 	err := scanUserRow(&result, row)
@@ -95,7 +111,6 @@ func (*User) GetByUUID(uuid string) (*User, error) {
 	var result User
 
 	conn := config.SQLDBConn()
-	defer conn.Close()
 
 	row := conn.QueryRow("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users where uuid = ?", uuid)
 
@@ -112,7 +127,6 @@ func (*User) GetByEmail(email string) (*User, error) {
 	var result User
 
 	conn := config.SQLDBConn()
-	defer conn.Close()
 
 	row := conn.QueryRow("select id, uuid, name, email, password, created_at, updated_at, deleted_at from users where email = ?", email)
 
