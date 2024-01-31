@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"starter-go-gin/libs"
 	"starter-go-gin/models"
 
@@ -14,14 +13,31 @@ func NewUserHandler() *UserHandler {
 	return &UserHandler{}
 }
 
-func (*UserHandler) List(c *gin.Context) {
-	users, err := models.NewUser().GetUsersWithPagination()
+type Query struct {
+	Page  int `form:"page,default=1" json:"page"`
+	Limit int `form:"limit,default=10" json:"limit"`
+}
 
-	if err != nil {
-		fmt.Println(err.Error())
+func (*UserHandler) List(c *gin.Context) {
+	var query Query
+
+	if err := c.BindQuery(&query); err != nil {
 		libs.ResponseInternalServerError(c)
 		return
 	}
 
-	libs.ResponseSuccessWithData(c, users)
+	users, err := models.NewUser().GetUsersWithPagination(
+		int64(query.Page),
+		int64(query.Limit),
+	)
+
+	if err != nil {
+		libs.ResponseInternalServerError(c)
+		return
+	}
+
+	libs.ResponseSuccessWithData(c, gin.H{
+		"users": users,
+		"query": query,
+	})
 }

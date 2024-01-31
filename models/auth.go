@@ -10,6 +10,7 @@ func LoginCheck(email, password string) (*User, error) {
 	user := NewUser()
 	user, err := user.GetByEmail(email)
 	if err != nil {
+		fmt.Println(err)
 		return nil, fmt.Errorf("not found user")
 	}
 

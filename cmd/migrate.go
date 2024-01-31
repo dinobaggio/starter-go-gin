@@ -13,7 +13,6 @@ var migrateCmd = &cobra.Command{
 	Long:  "",
 	Run: func(cmd *cobra.Command, args []string) {
 		sqlDB := config.SQLDBConn()
-		defer sqlDB.Close()
 
 		if err := goose.SetDialect("mysql"); err != nil {
 			panic(err)
